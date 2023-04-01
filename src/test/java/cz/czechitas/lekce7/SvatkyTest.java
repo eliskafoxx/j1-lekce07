@@ -41,7 +41,7 @@ class SvatkyTest {
   void getPocetJmen() {
     Svatky svatky = new Svatky();
     assertEquals(37, svatky.getPocetJmen());
-    assertNotEquals(-1, svatky.getSeznamJmen());
+    assertNotEquals(-1, svatky.getPocetJmen());
   }
 
   /**
@@ -59,10 +59,10 @@ class SvatkyTest {
   @Test
   void pridatSvatekDenMesicInt() {
     Svatky svatky = new Svatky();
-    svatky.pridatSvatek("Narcis", 31, 12);
+    svatky.pridatSvatek("Silvestr", 31, 12);
     assertEquals(38, svatky.getPocetJmen());
-    assertTrue(svatky.jeVSeznamu("Narcis"));
-    assertEquals(MonthDay.of(12,31),(svatky.kdyMaSvatek("Narcis")));
+    assertTrue(svatky.jeVSeznamu("Silvestr"));
+    assertEquals(MonthDay.of(12,31),(svatky.kdyMaSvatek("Silvestr")));
   }
 
   /**
@@ -70,17 +70,23 @@ class SvatkyTest {
    */
   @Test
   void pridatSvatekDenMesicMonth() {
-    //TODO Otestuje, že je jméno v seznamu svátků a že má přiřazen správný den
     Svatky svatky = new Svatky();
+    svatky.pridatSvatek("Silvestr", 31, Month.DECEMBER);
+    assertEquals(38,svatky.getPocetJmen());
+    assertTrue(svatky.jeVSeznamu("Silvestr"));
+    assertEquals(MonthDay.of(12,31) ,svatky.kdyMaSvatek("Silvestr"));
   }
 
   /**
    * Testuje metodu {@link Svatky#pridatSvatek(String, MonthDay)}
    */
   @Test
-  void prridatSvatekMonthDay() {
-    //TODO Otestuje, že je jméno v seznamu svátků a že má přiřazen správný den
+  void pridatSvatekMonthDay() {
     Svatky svatky = new Svatky();
+    svatky.pridatSvatek("Silvestr", MonthDay.of(12,31));
+    assertEquals(38,svatky.getPocetJmen());
+    assertTrue(svatky.jeVSeznamu("Silvestr"));
+    assertEquals(MonthDay.of(12,31) ,svatky.kdyMaSvatek("Silvestr"));
   }
 
   /**
@@ -88,7 +94,10 @@ class SvatkyTest {
    */
   @Test
   void smazatSvatek() {
-    //TODO Zkontrolovat, že po smazání bude počet svátků odpovídat novému počtu.
     Svatky svatky = new Svatky();
+    svatky.smazatSvatek("Monika");
+    assertEquals(36,svatky.getPocetJmen());
+    svatky.smazatSvatek("Silvestr");
+    assertFalse(svatky.jeVSeznamu("Silvestr"));
   }
 }
